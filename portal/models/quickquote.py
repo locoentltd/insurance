@@ -11,6 +11,9 @@ from .limit import Limit
 from .procedure import Procedure
 from .specialty import Specialty
 from .state import State, StateCoverage
+from .agency import Agency
+from .agent import Agent
+from .insured import Insured
 
 @reversion.register()
 class QuickQuote(models.Model):
@@ -55,28 +58,17 @@ class QuickQuote(models.Model):
 	)
 	created = models.DateTimeField(auto_now_add=True)
 	edited = models.DateTimeField(auto_now=True)
-	creator = models.ForeignKey(User)
-	editor = models.ForeignKey(User)
+	creator = models.ForeignKey(User,on_delete=models.CASCADE)
+	#editor = models.ForeignKey(User,on_delete=models.CASCADE)
 	friendly_name = models.CharField(max_length=50, blank=True)
 
-	state = models.ForeignKey('State')
-	primary_state = models.ForeignKey('StateCoverage')
-	secondary_state = models.ForeignKey('StateCoverage', blank=True, null=True)
-
-	primary_specialty = models.ForeignKey('Specialty')
-	secondary_specialty = models.ForeignKey('Specialty', blank=True, null=True)
-
-	laser_procedure = models.ForeignKey('Procedure')
-	bariatric_procedure = models.ForeignKey('Procedure')
-	telemedicine_procedure = models.ForeignKey('Procedure')
-	correctional_facilities = models.ForeignKey('Procedure')
-	nursing_homes = models.ForeignKey('Procedure')
+	state = models.ForeignKey(State,on_delete=models.CASCADE)
 
 	# An authenticated user will select these values.
-	agency = models.ForeignKey('Agency', blank=True, null=True)
-	agent = models.ForeignKey('Agent', blank=True, null=True)
-	insured = models.ForeignKey('Insured', blank=True, null=True)
-
+	agency = models.ForeignKey(Agency, blank=True, null=True,on_delete=models.CASCADE)
+	agent = models.ForeignKey(Agent, blank=True, null=True,on_delete=models.CASCADE)
+	insured = models.ForeignKey(Insured, blank=True, null=True,on_delete=models.CASCADE)
+	
 	# An external user will enter these values.
 	agency_name = models.CharField(max_length=50, blank=False)
 	agent_name = models.CharField(max_length=30, blank=False)
@@ -104,7 +96,7 @@ class QuickQuote(models.Model):
 	entity_note = models.TextField(blank=True)
 	professional_coverage = models.BooleanField(default=False)
 	professional_note = models.TextField(blank=True)
-	cosmetic_surgery = models.ForeignKey('Procedure')
+	cosmetic_surgery = models.ForeignKey('Procedure',on_delete=models.CASCADE)
 	cosmetic_elective_percentage = PercentageField(default=0)
 	cosmetic_recon_percentage = PercentageField(default=0)
 	claims_last_10_years = models.PositiveSmallIntegerField(default=0)

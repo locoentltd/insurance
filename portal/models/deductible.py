@@ -23,8 +23,8 @@ class DeductibleLimit(models.Model):
 	class Meta:
 		abstract = True
 
-	deductible = models.ForeignKey('Deductible')
-	limit = models.ForeignKey('Limit')
+	deductible = models.ForeignKey('Deductible',on_delete=models.CASCADE)
+	limit = models.ForeignKey('Limit',on_delete=models.CASCADE)
 
 
 class DedLimitMultiplier(DeductibleLimit):

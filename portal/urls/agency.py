@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 
 from portal.views import agency
 
 urlpatterns = [
-	url(r'^list/$', agency.AgencyList.as_view(), name='agency-list'),
-	url(r'^add/$', agency.AgencyCreate.as_view(), name='agency-create'),
-	url(r'^(?P<pk>[0-9]+)/$', agency.AgencyUpdate.as_view(), name='agency-update'),
+	path('list/', agency.AgencyList.as_view(), name='agency-list'),
+	path('add/', agency.AgencyCreate.as_view(), name='agency-create'),
+	path('<pk>/update', agency.AgencyUpdate.as_view(), name='agency-update'),
 ]

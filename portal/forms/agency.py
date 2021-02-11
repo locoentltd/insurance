@@ -57,7 +57,7 @@ class AgencyListForm(
 			if state:
 				agencies = agencies.filter(state=state)
 		else:
-			print vars(self)
+			print (vars(self))
 
 		return agencies
 

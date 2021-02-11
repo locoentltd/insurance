@@ -9,7 +9,7 @@ from .person import Person
 @reversion.register()
 class Agent(Person):
 	"""Insurance sales agent who works for an Agency."""
-	agency = models.ForeignKey('Agency')
+	agency = models.ForeignKey('Agency',on_delete=models.CASCADE)
 
 	class Meta:
 		ordering = ('name',)

@@ -13,21 +13,19 @@ Including another URLconf
 	1. Import the include() function: from django.conf.urls import url, include
 	2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
+from django.urls import include, path, reverse_lazy
 from django.contrib import admin
 from django.contrib.auth import views
-from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
 
+import portal.urls
 from rest_framework import routers
 
-import portal.urls
-
-
 urlpatterns = [
-	url(r'^$', RedirectView.as_view(url=reverse_lazy('quick-select-state'))),
-	url(r'^admin/', admin.site.urls),
-	url(r'^login/$', views.login, {'template_name': 'registration/login.html'}, name='login'), 
-	url(r'^logout/$', views.logout, name='logout'), 
-	url(r'^portal/', include(portal.urls.urlpatterns)),
+	path('', RedirectView.as_view(url=reverse_lazy('quick-select-state'))),
+	path('admin/', admin.site.urls),
+	path('login/', views.LoginView, {'template_name': 'registration/login.html'}, name='login'), 
+	path('logout/', views.LogoutView, name='logout'), 
+	path('portal/', include(portal.urls.urlpatterns)),
+	path('api-auth/', include('rest_framework.urls'))
 ]

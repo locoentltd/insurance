@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 
 from portal.views import insured
 
 urlpatterns = [
-	url(r'^list/$', insured.InsuredList.as_view(), name='insured-list'),
-	url(r'^add/$', insured.InsuredCreate.as_view(), name='insured-create'),
-	url(r'^(?P<pk>[0-9]+)/$', insured.InsuredUpdate.as_view(), name='insured-update'),
+	path('list/', insured.InsuredList.as_view(), name='insured-list'),
+	path('add/', insured.InsuredCreate.as_view(), name='insured-create'),
+	path('<pk>/update', insured.InsuredUpdate.as_view(), name='insured-update'),
 ]

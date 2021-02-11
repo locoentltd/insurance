@@ -32,10 +32,10 @@ class CacheForm(forms.Form):
 		for key in values.keys():
 			value = values[key]
 			# If the value is an instance of a database Model, save the instance.id
- 			if isinstance(value, Model):
- 				cache[key] = value.id
- 			else:
- 				cache[key] = value
+			if isinstance(value, Model):
+				cache[key] = value.id
+			else:
+				cache[key] = value
 		FormCache.set_form_cache(cache_name=self.cache_name, values=cache)
 
 	def set_form_data_from_cache(self):

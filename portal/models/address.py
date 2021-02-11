@@ -11,7 +11,7 @@ class Address(models.Model):
 	building = models.CharField(max_length=50, blank=True)
 	city = models.CharField(max_length=50, blank=False)
 	county = models.CharField(max_length=50, blank=True)
-	state = models.ForeignKey('State')
+	state = models.ForeignKey('State',on_delete=models.CASCADE)
 	zip_code = models.CharField(max_length=15, blank=False)
 
 	def __unicode__(self):

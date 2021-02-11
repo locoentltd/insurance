@@ -222,7 +222,7 @@ class QuickQuotePublicForm(forms.Form):
 		try:
 			state = kwargs['initial']['state']
 		except KeyError as e:
-			print "keyerror", e
+			print ("keyerror", e)
 
 		self.fields['state'].initial = state
 		self.fields['primary_practice_county'] = forms.ModelChoiceField(
@@ -438,8 +438,8 @@ class QuickQuotePublicForm(forms.Form):
 
 	def create_quick_quote(self):
 		'''Create and save a new quick quote, and all the Foreign Key objects.'''
-		print "---> Called create_quick_quote()"
+		print ("---> Called create_quick_quote()")
 		#print self.cleaned_data
-		print self.cleaned_data.get('clicked_button');
+		print (self.cleaned_data.get('clicked_button'))
 		return True
 

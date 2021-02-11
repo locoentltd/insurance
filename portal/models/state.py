@@ -8,6 +8,11 @@ from portal.querysets.state import StateQuerySet
 from .county import County
 from .limit import Limit
 
+COVERS = (
+	('primary','PRIMARY'),
+	('secondary','SECONDARY'),
+	)
+
 @reversion.register()
 class State(models.Model):
 	'''A State in the U.S.A.'''
@@ -26,12 +31,13 @@ class State(models.Model):
 	def __unicode__(self):
 		return u'{}'.format(self.name)
 
-
 class StateCoverage(models.Model):
 	'''
 	Doctors can practice in multiple states.
 	Save the percentage of work in each.
 	'''
-	state = models.ForeignKey('State')
+	state = models.ForeignKey('State',on_delete=models.CASCADE)
 	practice_percentage = PercentageField(default=0)
+	cover = models.CharField(max_length=30, choices=COVERS)
+
 
